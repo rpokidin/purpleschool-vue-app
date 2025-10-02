@@ -1,9 +1,9 @@
 <script setup>
-  const a = 10;
+  const date = new Date();
 </script>
 
 <template>
-  Привет
+  <div>{{ date }}</div>
 </template>
 
 <style scoped>
