@@ -1,11 +1,15 @@
 <script setup>
-  const date = new Date();
+  import Button from './components/Button.vue';
 </script>
 
 <template>
-  <div>{{ date }}</div>
+  <main class="main">
+    <Button>Начать игру</Button>
+  </main>
 </template>
 
 <style scoped>
-
+.main {
+  background-color: var(--bg-card);
+}
 </style>

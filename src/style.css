@@ -1,1 +1,29 @@
-:root {}
+:root {
+  --white: #FFF;
+  --black: #000;
+  --gray: #222;
+  --bg-main: #F0F4F8;
+
+  --btn-default: #008BFE;
+  --btn-hover: #006FCB;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  background-color: var(--bg-main);
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
