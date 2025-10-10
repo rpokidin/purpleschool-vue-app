@@ -1,38 +1,37 @@
 <script setup>
+
 const props = defineProps({
     num: Number,
     word: String
 })
+
 const emit = defineEmits({
-    turnOver(value) {
+    cardClick(value) {
         return value;
     }
 })
 
-const card = () => {
-    emit("turnOver", "Перевернуть")
+const card = (event) => {
+
+    emit("cardClick", event)
 }
-
-
 
 </script>
 
 <template>
-    <div class="card" @click="card()">
-        <div class="card__wrap">
+    <div class="card">
+        <div class="card__wrap" @click="card('flip')">
             <div class="card__num">{{ props.num }}</div>
             <div class="card__word">{{ props.word }}</div>
-            <div class="card__botom">
-                Перевернуть
-                <div class="card__botom-btns">
-                    <button>
-                        <img src="../assets/no.svg" alt="">
-                    </button>
-                    <button>
-                        <img src="../assets/yes.svg" alt="">
-                    </button>
-                </div>
-            </div>
+            <div class="card__botom">Перевернуть</div>
+        </div>
+        <div class="card__btns">
+            <button @click="card('no')">
+                <img src="../assets/no.svg" alt="">
+            </button>
+            <button @click="card('yes')">
+                <img src="../assets/yes.svg" alt="">
+            </button>
         </div>
     </div>
 </template>
@@ -44,6 +43,7 @@ const card = () => {
     min-height: 380px;
     padding: 30px 20px;
     border-radius: 16px;
+    cursor: pointer;
 }
 .card__wrap {
     display: flex;
@@ -69,9 +69,6 @@ const card = () => {
 }
 .card__botom {
     background-color: var(--white);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: fit-content;
     align-self: center;
     font-weight: 700;
@@ -83,11 +80,10 @@ const card = () => {
     position: relative;
     transform: translate(0,50%);
 }
-.card__botom-btns {
-    width: 100%;
+.card__btns {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 16px;
 }
 </style>

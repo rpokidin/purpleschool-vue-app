@@ -4,7 +4,7 @@ import Score from './components/Score.vue';
 import Button from './components/Button.vue';
 import Card from './components/Card.vue';
 
-function getCard(value) {
+function cardEvent(value) {
   console.log(value);
 }
 </script>
@@ -16,7 +16,7 @@ function getCard(value) {
   </header>
   <main class="main">
     <div class="card-list">
-      <Card num="01" word="unadmitted" @turn-over="getCard" />
+      <Card num="01" word="unadmitted" @card-click="cardEvent" />
     </div>
     <Button>Начать игру</Button>
   </main> 

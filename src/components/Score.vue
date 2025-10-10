@@ -1,7 +1,9 @@
 <script setup>
+
     const props = defineProps({
         value: Number
     })
+    
 </script>
 
 <template>
