@@ -1,4 +1,5 @@
 <script setup>
+
 import Logo from './components/Logo.vue';
 import Score from './components/Score.vue';
 import Button from './components/Button.vue';
@@ -7,9 +8,18 @@ import { ref } from 'vue';
 
 const score = ref(0)
 
+const data = {
+  num: "01",
+  word: "unadmitted",
+  translation: "непризнанный",
+  state: "closed",
+  status: "pending"
+}
+
 function cardEvent(value) {
   console.log(value);
 }
+
 </script>
 
 <template>
@@ -19,7 +29,7 @@ function cardEvent(value) {
   </header>
   <main class="main">
     <div class="card-list">
-      <Card num="01" word="unadmitted" @card-click="cardEvent" />
+      <Card v-bind="data" @card-click="cardEvent" />
     </div>
     <Button>Начать игру</Button>
   </main> 

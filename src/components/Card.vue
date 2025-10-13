@@ -1,6 +1,6 @@
 <script setup>
 
-const props = defineProps({
+const { num, word } = defineProps({
     num: Number,
     word: String
 })
@@ -12,7 +12,6 @@ const emit = defineEmits({
 })
 
 const card = (event) => {
-
     emit("cardClick", event)
 }
 
@@ -21,8 +20,8 @@ const card = (event) => {
 <template>
     <div class="card">
         <div class="card__wrap" @click="card('flip')">
-            <div class="card__num">{{ props.num }}</div>
-            <div class="card__word">{{ props.word }}</div>
+            <div class="card__num">{{ num }}</div>
+            <div class="card__word">{{ word }}</div>
             <div class="card__botom">Перевернуть</div>
         </div>
         <div class="card__btns">
