@@ -1,17 +1,15 @@
 <script setup>
-import { ref } from 'vue';
+//import { ref } from 'vue';
 
-const props = defineProps({
-    value: Number
+const { score } = defineProps({
+    score: Number
 })
 
-const scoreVal = ref(props.value);
-    
 </script>
 
 <template>
     <div class="score">
-        <div class="score-val">{{ scoreVal }}</div>
+        <div class="score-val">{{ score }}</div>
         <img src="../assets/heart.svg" alt="">
     </div>
 </template>

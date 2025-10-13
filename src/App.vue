@@ -3,6 +3,9 @@ import Logo from './components/Logo.vue';
 import Score from './components/Score.vue';
 import Button from './components/Button.vue';
 import Card from './components/Card.vue';
+import { ref } from 'vue';
+
+const score = ref(0)
 
 function cardEvent(value) {
   console.log(value);
@@ -12,7 +15,7 @@ function cardEvent(value) {
 <template>
   <header class="header">
     <Logo />
-    <Score value="0" />
+    <Score :score="score" />
   </header>
   <main class="main">
     <div class="card-list">
