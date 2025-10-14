@@ -1,14 +1,14 @@
 <script setup>
 
-    const props = defineProps({
-        value: Number
-    })
-    
+const { score } = defineProps({
+    score: Number
+})
+
 </script>
 
 <template>
     <div class="score">
-        <div class="score-val">{{ props.value }}</div>
+        <div class="score-val">{{ score }}</div>
         <img src="../assets/heart.svg" alt="">
     </div>
 </template>
