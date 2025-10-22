@@ -8,13 +8,22 @@ import { ref } from 'vue';
 
 const score = ref(0)
 
-const data = {
-  num: "01",
-  word: "unadmitted",
-  translation: "непризнанный",
-  state: "closed",
-  status: "pending"
-}
+const data = [
+  {
+    num: "01",
+    word: "unadmitted",
+    translation: "непризнанный",
+    state: "closed",
+    status: "pending" //success | fail | pending
+  },
+  {
+    num: "02",
+    word: "armour-piercer",
+    translation: "бронебойный",
+    state: "opened",
+    status: "pending"
+  },
+]
 
 function cardEvent(value) {
   console.log(value);
@@ -29,7 +38,7 @@ function cardEvent(value) {
   </header>
   <main class="main">
     <div class="card-list">
-      <Card v-bind="data" @card-click="cardEvent" />
+      <Card v-for="item in data" v-bind="item" :key="item.num" @card-click="cardEvent" />
     </div>
     <Button>Начать игру</Button>
   </main> 
