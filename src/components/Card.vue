@@ -3,8 +3,8 @@ import { ref } from 'vue';
 
 const isClose = ref(true)
 
-const { num, word } = defineProps({
-    num: Number,
+const { word } = defineProps({
+    //num: String,
     word: String
 })
 
@@ -25,7 +25,7 @@ const card = (event) => {
     <div class="card">
         <div class="card__border">
             <div class="card__top">
-                <div class="card__top-num">{{ num }}</div>
+                <!--div class="card__top-num">{{ num }}</div-->
                 <img class="card__top-ico" src="../assets/success-big.svg" alt="">
             </div>
             <div class="card__word" @click="card('flip')">{{ word }}</div>

@@ -7,23 +7,22 @@ import Card from './components/Card.vue';
 import { ref } from 'vue';
 
 const score = ref(0)
+const words = ref(null)
 
-const data = [
-  {
-    num: "01",
-    word: "unadmitted",
-    translation: "непризнанный",
-    state: "closed",
-    status: "pending" //success | fail | pending
-  },
-  {
-    num: "02",
-    word: "armour-piercer",
-    translation: "бронебойный",
-    state: "opened",
-    status: "pending"
-  },
-]
+const API_ENDPOINT = "http://localhost:8080/api/random-words"
+fetch(API_ENDPOINT)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Ошибка запроса');
+    }
+    return response.json();
+  })
+  .then(data => {
+    words.value = data
+  })
+  .catch(error => {
+    console.log(error);
+  });
 
 function cardEvent(value) {
   console.log(value);
@@ -38,7 +37,12 @@ function cardEvent(value) {
   </header>
   <main class="main">
     <div class="card-list">
-      <Card v-for="item in data" v-bind="item" :key="item.num" @card-click="cardEvent" />
+      <Card 
+        v-for="item in words" v-bind="item" :key="item.word" 
+        :word="item.word"
+        
+        @card-click="cardEvent" 
+      />
     </div>
     <Button>Начать игру</Button>
   </main> 
@@ -62,6 +66,7 @@ function cardEvent(value) {
 }
 .card-list {
   display: flex;
+  flex-wrap: wrap;
   gap: 100px;
   margin-bottom: 50px;
 }
