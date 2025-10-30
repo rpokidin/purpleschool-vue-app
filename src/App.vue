@@ -28,6 +28,8 @@ function cardEvent(value) {
   console.log(value);
 }
 
+console.log(words)
+
 </script>
 
 <template>
@@ -38,9 +40,9 @@ function cardEvent(value) {
   <main class="main">
     <div class="card-list">
       <Card 
-        v-for="item in words" v-bind="item" :key="item.word" 
+        v-for="(item, index) in words" v-bind="item" :key="index"
+        :num="index + 1"
         :word="item.word"
-        
         @card-click="cardEvent" 
       />
     </div>

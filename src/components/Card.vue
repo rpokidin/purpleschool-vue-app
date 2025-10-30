@@ -3,9 +3,10 @@ import { ref } from 'vue';
 
 const isClose = ref(true)
 
-const { word } = defineProps({
-    //num: String,
-    word: String
+const { num, word } = defineProps({
+    num: Number,
+    word: String,
+    translation: String
 })
 
 const emit = defineEmits({
@@ -19,16 +20,21 @@ const card = (event) => {
     emit("cardClick", event)
 }
 
+
+
 </script>
 
 <template>
     <div class="card">
         <div class="card__border">
             <div class="card__top">
-                <!--div class="card__top-num">{{ num }}</div-->
+                <div class="card__top-num">{{ num }}</div>
                 <img class="card__top-ico" src="../assets/success-big.svg" alt="">
             </div>
-            <div class="card__word" @click="card('flip')">{{ word }}</div>
+            <div class="card__word" @click="card('flip')">
+                <template v-if="isClose">{{ word }}</template>
+                <template v-else>{{ translation }}</template>
+            </div>
             <div class="card__botom">
                 <div class="card__botom-status" v-if="isClose">Перевернуть</div>
                 <template v-else>
@@ -72,7 +78,8 @@ const card = (event) => {
     width: fit-content;
     font-size: 14px;
     line-height: 1;
-    padding: 0 5px;
+    padding: 0 1px;
+    margin-left: 16px;
 }
 .card__top-ico {
     transform: translate(-50%,-50%);
