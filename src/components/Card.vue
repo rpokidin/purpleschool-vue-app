@@ -1,43 +1,66 @@
 <script setup>
 import { ref } from 'vue';
 
-const isClose = ref(true)
+const isFlip = ref(false);
+const localStatus = ref(status);
 
-const { num, word } = defineProps({
+const { num, word, translation, status } = defineProps({
     num: Number,
     word: String,
-    translation: String
+    translation: String,
+    status: {
+        type: String,
+        default: "pending"
+    }
 })
 
+/*
 const emit = defineEmits({
     cardClick(value) {
         return value;
     }
 })
+*/
 
 const card = (event) => {
-    isClose.value = false
-    emit("cardClick", event)
+
+    //emit("cardClick", event)
+
+    switch (event) {
+        case "flip":
+            isFlip.value = true
+            break;
+        case "yes":
+            isFlip.value = false
+            localStatus.value = "success"
+            break;
+        case "no":
+            isFlip.value = false
+            localStatus.value = "fail"
+            break;
+    }
+
 }
-
-
-
 </script>
 
 <template>
-    <div class="card">
+    <div class="card" :status="status">
         <div class="card__border">
             <div class="card__top">
                 <div class="card__top-num">{{ num }}</div>
-                <img class="card__top-ico" src="../assets/success-big.svg" alt="">
+                <template v-if="localStatus == 'success'">
+                    <img src="../assets/success-big.svg" alt="">
+                </template>
+                <template v-if="localStatus == 'fail'">
+                    <img src="../assets/fail-big.svg" alt="">
+                </template>
             </div>
             <div class="card__word" @click="card('flip')">
-                <template v-if="isClose">{{ word }}</template>
-                <template v-else>{{ translation }}</template>
+                <template v-if="isFlip">{{ translation }}</template>
+                <template v-else>{{ word }}</template>
             </div>
             <div class="card__botom">
-                <div class="card__botom-status" v-if="isClose">Перевернуть</div>
-                <template v-else>
+                <template v-if="isFlip">
                     <button @click="card('no')">
                         <img src="../assets/no.svg" alt="">
                     </button>
@@ -45,6 +68,14 @@ const card = (event) => {
                         <img src="../assets/yes.svg" alt="">
                     </button>
                 </template>
+                <div v-else class="card__botom-status">
+                    <template v-if="localStatus == 'pending'">
+                    Перевернуть
+                    </template>
+                    <template v-else>
+                    Завершено
+                    </template>
+                </div>
             </div>
         </div>
     </div>
@@ -53,8 +84,8 @@ const card = (event) => {
 <style scoped>
 .card {
     background-color: var(--white);
-    min-width: 250px;
-    min-height: 380px;
+    width: 250px;
+    height: 380px;
     padding: 30px 20px;
     border-radius: 16px;
 }
@@ -63,7 +94,6 @@ const card = (event) => {
     flex-direction: column;
     height: 100%;
     border: 1px solid var(--light-blue);
-
 }
 .card__border {
     border-radius: 12px;
@@ -81,20 +111,20 @@ const card = (event) => {
     padding: 0 1px;
     margin-left: 16px;
 }
-.card__top-ico {
+.card__top > img {
     transform: translate(-50%,-50%);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
 }
-
-
 .card__word {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     font-size: 18px;
+    padding: 0 20px;
     cursor: pointer;
     flex-grow: 1;
 }
