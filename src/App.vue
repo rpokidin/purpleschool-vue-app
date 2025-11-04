@@ -19,18 +19,26 @@ onMounted(() => {
       return response.json();
     })
     .then(data => {
-      words.value = data
+      words.value = data.map(item => ({ ...item, status: 'pending' }))
     })
     .catch(error => {
       console.log(error);
     });
 })
 
-/*
+
 function cardEvent(value) {
+  
   console.log(value);
+
+    switch (value) {
+        case "no":
+            status = "no"
+            break;
+    }
 }
-*/
+
+console.log(words)
 
 </script>
 
@@ -45,7 +53,7 @@ function cardEvent(value) {
         v-for="(item, index) in words" v-bind="item" :key="index"
         :num="index + 1"
         :word="item.word"
-        :status="status"
+        :status="item.status"
         @card-click="cardEvent" 
       />
     </div>

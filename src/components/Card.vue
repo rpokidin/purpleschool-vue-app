@@ -8,37 +8,34 @@ const { num, word, translation, status } = defineProps({
     num: Number,
     word: String,
     translation: String,
-    status: {
-        type: String,
-        default: "pending"
-    }
+    status: String
 })
 
-/*
 const emit = defineEmits({
     cardClick(value) {
         return value;
     }
 })
-*/
 
 const card = (event) => {
 
-    //emit("cardClick", event)
+    emit("cardClick", event)
 
+    /*
     switch (event) {
         case "flip":
             isFlip.value = true
             break;
         case "yes":
             isFlip.value = false
-            localStatus.value = "success"
+            status.value = "success"
             break;
         case "no":
             isFlip.value = false
-            localStatus.value = "fail"
+            status.value = "fail"
             break;
     }
+    */
 
 }
 </script>
