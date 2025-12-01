@@ -1,8 +1,4 @@
 <script setup>
-import { ref } from 'vue';
-
-const isFlip = ref(false);
-const localStatus = ref(status);
 
 const { num, word, translation, status } = defineProps({
     num: Number,
@@ -17,26 +13,8 @@ const emit = defineEmits({
     }
 })
 
-const card = (event) => {
-
-    emit("cardClick", event)
-
-    /*
-    switch (event) {
-        case "flip":
-            isFlip.value = true
-            break;
-        case "yes":
-            isFlip.value = false
-            status.value = "success"
-            break;
-        case "no":
-            isFlip.value = false
-            status.value = "fail"
-            break;
-    }
-    */
-
+const card = (word, status) => {
+    emit("cardClick", word, status)
 }
 </script>
 
@@ -45,34 +23,28 @@ const card = (event) => {
         <div class="card__border">
             <div class="card__top">
                 <div class="card__top-num">{{ num }}</div>
-                <template v-if="localStatus == 'success'">
+                <template v-if="status == 'success'">
                     <img src="../assets/success-big.svg" alt="">
                 </template>
-                <template v-if="localStatus == 'fail'">
+                <template v-if="status == 'fail'">
                     <img src="../assets/fail-big.svg" alt="">
                 </template>
             </div>
-            <div class="card__word" @click="card('flip')">
-                <template v-if="isFlip">{{ translation }}</template>
-                <template v-else>{{ word }}</template>
+            <div class="card__word" @click="card(word, 'flip')">
+                <template v-if="status == 'pending'">{{ word }}</template>
+                <template v-else>{{ translation }}</template>
             </div>
             <div class="card__botom">
-                <template v-if="isFlip">
-                    <button @click="card('no')">
-                        <img src="../assets/no.svg" alt="">
+                <template v-if="status == 'pending'">Перевернуть</template>
+                <template v-else-if="status == 'flip'">
+                    <button @click="card(word, 'fail')">
+                        <img src="../assets/fail-min.svg" alt="">
                     </button>
-                    <button @click="card('yes')">
-                        <img src="../assets/yes.svg" alt="">
+                    <button @click="card(word, 'success')">
+                        <img src="../assets/success-min.svg" alt="">
                     </button>
                 </template>
-                <div v-else class="card__botom-status">
-                    <template v-if="localStatus == 'pending'">
-                    Перевернуть
-                    </template>
-                    <template v-else>
-                    Завершено
-                    </template>
-                </div>
+                <template v-else>Завершено</template>
             </div>
         </div>
     </div>
